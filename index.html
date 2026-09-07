@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Точка аудита</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6fb;
+      color: #182230;
+    }
+
+    header {
+      background: #173b67;
+      color: white;
+      padding: 22px;
+    }
+
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 0;
+      opacity: .85;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    .panel {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.06);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 8px;
+      border: 1px solid #ccd5e0;
+      font-size: 14px;
+    }
+
+    button {
+      border: 0;
+      background: #1769aa;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #125586;
+    }
+
+    .secondary {
+      background: #e8eef5;
+      color: #173b67;
+    }
+
+    .danger {
+      background: #c0392b;
+    }
+
+    .search {
+      margin-bottom: 14px;
+    }
+
+    .audit {
+      border: 1px solid #e0e6ee;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .audit-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .audit h3 {
+      margin: 0 0 8px;
+    }
+
+    .audit p {
+      margin: 5px 0;
+      color: #536274;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      background: #e8eef5;
+    }
+
+    .status.planned {
+      background: #fff1c7;
+      color: #806300;
+    }
+
+    .status.progress {
+      background: #d9edff;
+      color: #075c9c;
+    }
+
+    .status.done {
+      background: #d9f5df;
+      color: #207238;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .actions button {
+      width: auto;
+      padding: 8px 12px;
+    }
+
+    .empty {
+      text-align: center;
+      color: #718096;
+      padding: 25px;
+    }
+
+    @media (max-width: 750px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .audit-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Точка аудита</h1>
+    <p>Управление аудиторскими проверками</p>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h2 id="formTitle">Новый аудит</h2>
+
+      <form id="auditForm">
+        <div class="form-grid">
+          <input id="client" placeholder="Клиент" required>
+          <input id="industry" placeholder="Отрасль" required>
+          <input id="period" placeholder="Период проверки" required>
+
+          <select id="status">
+            <option value="Запланирован">Запланирован</option>
+            <option value="В работе">В работе</option>
+            <option value="Завершён">Завершён</option>
+          </select>
+        </div>
+
+        <br>
+
+        <button type="submit" id="submitButton">
+          Добавить аудит
+        </button>
+
+        <button type="button" class="secondary" id="cancelButton" style="display:none;">
+          Отменить редактирование
+        </button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>Аудиты</h2>
+
+      <input
+        class="search"
+        id="search"
+        placeholder="Поиск по клиенту, отрасли или периоду"
+      >
+
+      <div id="auditList"></div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("auditForm");
+    const clientInput = document.getElementById("client");
+    const industryInput = document.getElementById("industry");
+    const periodInput = document.getElementById("period");
+    const statusInput = document.getElementById("status");
+    const auditList = document.getElementById("auditList");
+    const searchInput = document.getElementById("search");
+    const formTitle = document.getElementById("formTitle");
+    const submitButton = document.getElementById("submitButton");
+    const cancelButton = document.getElementById("cancelButton");
+
+    let audits = JSON.parse(localStorage.getItem("audits") || "[]");
+    let editingId = null;
+
+    function saveAudits() {
+      localStorage.setItem("audits", JSON.stringify(audits));
+    }
+
+    function statusClass(status) {
+      if (status === "Запланирован") return "planned";
+      if (status === "В работе") return "progress";
+      return "done";
+    }
+
+    function renderAudits() {
+      const query = searchInput.value.toLowerCase().trim();
+
+      const filtered = audits.filter(audit =>
+        audit.client.toLowerCase().includes(query) ||
+        audit.industry.toLowerCase().includes(query) ||
+        audit.period.toLowerCase().includes(query)
+      );
+
+      if (filtered.length === 0) {
+        auditList.innerHTML = `
+          <div class="empty">
+            Аудитов пока нет. Создайте первую проверку.
+          </div>
+        `;
+        return;
+      }
+
+      auditList.innerHTML = filtered.map(audit => `
+        <article class="audit">
+          <div class="audit-top">
+            <div>
+              <h3>${escapeHtml(audit.client)}</h3>
+              <p><strong>Отрасль:</strong> ${escapeHtml(audit.industry)}</p>
+              <p><strong>Период:</strong> ${escapeHtml(audit.period)}</p>
+            </div>
+
+            <span class="status ${statusClass(audit.status)}">
+              ${escapeHtml(audit.status)}
+            </span>
+          </div>
+
+          <div class="actions">
+            <button onclick="editAudit('${audit.id}')">
+              Редактировать
+            </button>
+
+            <button class="danger" onclick="deleteAudit('${audit.id}')">
+              Удалить
+            </button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function escapeHtml(value) {
+      return value
+        .replaceAll("&", "&")
+        .replaceAll("<", "<")
+        .replaceAll(">", ">")
+        .replaceAll('"', """)
+        .replaceAll("'", "'");
+    }
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const auditData = {
+        client: clientInput.value.trim(),
+        industry: industryInput.value.trim(),
+        period: periodInput.value.trim(),
+        status: statusInput.value
+      };
+
+      if (editingId) {
+        audits = audits.map(audit =>
+          audit.id === editingId
+            ? { ...audit, ...auditData }
+            : audit
+        );
+      } else {
+        audits.unshift({
+          id: Date.now().toString(),
+          ...auditData
+        });
+      }
+
+      saveAudits();
+      resetForm();
+      renderAudits();
+    });
+
+    function editAudit(id) {
+      const audit = audits.find(item => item.id === id);
+      if (!audit) return;
+
+      editingId = id;
+      clientInput.value = audit.client;
+      industryInput.value = audit.industry;
+      periodInput.value = audit.period;
+      statusInput.value = audit.status;
+
+      formTitle.textContent = "Редактирование аудита";
+      submitButton.textContent = "Сохранить изменения";
+      cancelButton.style.display = "inline-block";
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function deleteAudit(id) {
+      if (!confirm("Удалить этот аудит?")) return;
+
+      audits = audits.filter(audit => audit.id !== id);
+      saveAudits();
+      renderAudits();
+    }
+
+    function resetForm() {
+      editingId = null;
+      form.reset();
+      formTitle.textContent = "Новый аудит";
+      submitButton.textContent = "Добавить аудит";
+      cancelButton.style.display = "none";
+    }
+
+    cancelButton.addEventListener("click", resetForm);
+    searchInput.addEventListener("input", renderAudits);
+
+    renderAudits();
+  </script>
+</body>
+</html>
