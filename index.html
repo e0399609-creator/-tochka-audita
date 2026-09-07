@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Точка аудита</title>
 
   <style>
@@ -12,15 +13,19 @@
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f3f6fb;
-      color: #182230;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: #f4f6f8;
+      color: #1f2937;
+    }
+
+    .app {
+      min-height: 100vh;
     }
 
     header {
-      background: #173b67;
+      background: #111827;
       color: white;
-      padding: 22px;
+      padding: 22px 20px;
     }
 
     header h1 {
@@ -30,331 +35,998 @@
 
     header p {
       margin: 0;
-      opacity: .85;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 24px auto;
-      padding: 0 16px;
-    }
-
-    .panel {
-      background: white;
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 14px rgba(0,0,0,.06);
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-
-    input, select, button {
-      width: 100%;
-      padding: 11px 12px;
-      border-radius: 8px;
-      border: 1px solid #ccd5e0;
+      color: #cbd5e1;
       font-size: 14px;
+    }
+
+    main {
+      width: min(1100px, calc(100% - 30px));
+      margin: 30px auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 15px;
+      outline: none;
+      background: white;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
     }
 
     button {
       border: 0;
-      background: #1769aa;
-      color: white;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 600;
       cursor: pointer;
-      font-weight: bold;
+      transition: 0.2s;
     }
 
     button:hover {
-      background: #125586;
+      transform: translateY(-1px);
+    }
+
+    .primary {
+      background: #2563eb;
+      color: white;
+      flex: 1;
+    }
+
+    .primary:hover {
+      background: #1d4ed8;
     }
 
     .secondary {
-      background: #e8eef5;
-      color: #173b67;
+      background: #e5e7eb;
+      color: #374151;
     }
 
     .danger {
-      background: #c0392b;
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .edit {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    .top-row h2 {
+      margin: 0;
     }
 
     .search {
-      margin-bottom: 14px;
-    }
-
-    .audit {
-      border: 1px solid #e0e6ee;
+      width: 240px;
+      padding: 11px 13px;
+      border: 1px solid #d1d5db;
       border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 12px;
+      font-size: 14px;
+      outline: none;
     }
 
-    .audit-top {
+    .search:focus {
+      border-color: #2563eb;
+    }
+
+    .audit-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .audit-item {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 17px;
+      background: #fff;
+    }
+
+    .audit-main {
       display: flex;
       justify-content: space-between;
-      gap: 12px;
-      align-items: center;
+      gap: 15px;
+      align-items: flex-start;
     }
 
-    .audit h3 {
-      margin: 0 0 8px;
+    .audit-name {
+      font-weight: 700;
+      font-size: 17px;
+      margin-bottom: 6px;
     }
 
-    .audit p {
-      margin: 5px 0;
-      color: #536274;
+    .audit-info {
+      color: #6b7280;
+      font-size: 13px;
+      line-height: 1.6;
     }
 
     .status {
       display: inline-block;
-      padding: 5px 9px;
-      border-radius: 20px;
+      padding: 6px 10px;
+      border-radius: 999px;
       font-size: 12px;
-      font-weight: bold;
-      background: #e8eef5;
+      font-weight: 700;
+      white-space: nowrap;
     }
 
-    .status.planned {
-      background: #fff1c7;
-      color: #806300;
+    .status-planned {
+      background: #fef3c7;
+      color: #92400e;
     }
 
-    .status.progress {
-      background: #d9edff;
-      color: #075c9c;
+    .status-progress {
+      background: #dbeafe;
+      color: #1d4ed8;
     }
 
-    .status.done {
-      background: #d9f5df;
-      color: #207238;
+    .status-done {
+      background: #dcfce7;
+      color: #166534;
     }
 
-    .actions {
+    .audit-actions {
       display: flex;
       gap: 8px;
-      margin-top: 12px;
+      margin-top: 14px;
     }
 
-    .actions button {
-      width: auto;
+    .audit-actions button {
       padding: 8px 12px;
+      font-size: 12px;
     }
 
     .empty {
       text-align: center;
-      color: #718096;
-      padding: 25px;
+      padding: 40px 20px;
+      color: #9ca3af;
     }
 
-    @media (max-width: 750px) {
-      .form-grid {
+    .empty-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .counter {
+      color: #6b7280;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+
+    .message {
+      display: none;
+      margin-bottom: 18px;
+      padding: 12px 15px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .message.success {
+      display: block;
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .message.error {
+      display: block;
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    @media (max-width: 800px) {
+      .grid {
         grid-template-columns: 1fr;
       }
 
-      .audit-top {
-        align-items: flex-start;
+      .top-row {
         flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 500px) {
+      main {
+        width: min(100% - 20px, 1100px);
+        margin: 20px auto;
+      }
+
+      .card {
+        padding: 17px;
+      }
+
+      header {
+        padding: 18px 15px;
+      }
+
+      header h1 {
+        font-size: 24px;
+      }
+
+      .audit-main {
+        flex-direction: column;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+
+      .primary {
+        width: 100%;
       }
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <h1>Точка аудита</h1>
-    <p>Управление аудиторскими проверками</p>
-  </header>
 
-  <main class="container">
-    <section class="panel">
-      <h2 id="formTitle">Новый аудит</h2>
+  <div class="app">
 
-      <form id="auditForm">
-        <div class="form-grid">
-          <input id="client" placeholder="Клиент" required>
-          <input id="industry" placeholder="Отрасль" required>
-          <input id="period" placeholder="Период проверки" required>
+    <header>
+      <h1>Точка аудита</h1>
+      <p>Управление аудиторскими проверками</p>
+    </header>
 
-          <select id="status">
-            <option value="Запланирован">Запланирован</option>
-            <option value="В работе">В работе</option>
-            <option value="Завершён">Завершён</option>
-          </select>
-        </div>
+    <main>
 
-        <br>
+      <div id="message" class="message"></div>
 
-        <button type="submit" id="submitButton">
-          Добавить аудит
-        </button>
+      <div class="grid">
 
-        <button type="button" class="secondary" id="cancelButton" style="display:none;">
-          Отменить редактирование
-        </button>
-      </form>
-    </section>
+        <!-- ФОРМА -->
+        <section class="card">
 
-    <section class="panel">
-      <h2>Аудиты</h2>
+          <h2 id="formTitle">Новый аудит</h2>
 
-      <input
-        class="search"
-        id="search"
-        placeholder="Поиск по клиенту, отрасли или периоду"
-      >
+          <form id="auditForm">
 
-      <div id="auditList"></div>
-    </section>
-  </main>
+            <div class="field">
+              <label for="client">Клиент / организация</label>
+              <input
+                type="text"
+                id="client"
+                name="client"
+                placeholder="Например: ООО «Альфа»"
+                required
+              >
+            </div>
+
+            <div class="field">
+              <label for="industry">Отрасль</label>
+              <input
+                type="text"
+                id="industry"
+                name="industry"
+                placeholder="Например: производство"
+                required
+              >
+            </div>
+
+            <div class="field">
+              <label for="period">Период проверки</label>
+              <input
+                type="text"
+                id="period"
+                name="period"
+                placeholder="Например: сентябрь 2026"
+                required
+              >
+            </div>
+
+            <div class="field">
+              <label for="status">Статус</label>
+
+              <select id="status" name="status">
+                <option value="planned">Запланирован</option>
+                <option value="progress">В работе</option>
+                <option value="done">Завершён</option>
+              </select>
+            </div>
+
+            <div class="buttons">
+
+              <button
+                type="submit"
+                class="primary"
+                id="submitButton"
+              >
+                Добавить аудит
+              </button>
+
+              <button
+                type="button"
+                class="secondary"
+                id="cancelButton"
+                style="display: none;"
+              >
+                Отмена
+              </button>
+
+            </div>
+
+          </form>
+
+        </section>
+
+
+        <!-- СПИСОК АУДИТОВ -->
+        <section class="card">
+
+          <div class="top-row">
+
+            <h2>Мои аудиты</h2>
+
+            <input
+              type="search"
+              id="search"
+              class="search"
+              placeholder="Поиск..."
+            >
+
+          </div>
+
+          <div id="auditList" class="audit-list"></div>
+
+          <div id="counter" class="counter"></div>
+
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
 
   <script>
+
+    // ============================================
+    // НАСТРОЙКИ
+    // ============================================
+
+    const STORAGE_KEY = "tochka_audita_audits";
+
+
+    // ============================================
+    // ЭЛЕМЕНТЫ СТРАНИЦЫ
+    // ============================================
+
     const form = document.getElementById("auditForm");
+
     const clientInput = document.getElementById("client");
     const industryInput = document.getElementById("industry");
     const periodInput = document.getElementById("period");
     const statusInput = document.getElementById("status");
+
     const auditList = document.getElementById("auditList");
     const searchInput = document.getElementById("search");
+    const counter = document.getElementById("counter");
+
     const formTitle = document.getElementById("formTitle");
     const submitButton = document.getElementById("submitButton");
     const cancelButton = document.getElementById("cancelButton");
 
-    let audits = JSON.parse(localStorage.getItem("audits") || "[]");
+    const message = document.getElementById("message");
+
+
+    // ============================================
+    // СОСТОЯНИЕ ПРИЛОЖЕНИЯ
+    // ============================================
+
+    let audits = [];
     let editingId = null;
 
-    function saveAudits() {
-      localStorage.setItem("audits", JSON.stringify(audits));
+
+    // ============================================
+    // ЗАГРУЗКА АУДИТОВ
+    // ============================================
+
+    function loadAudits() {
+
+      try {
+
+        const saved = localStorage.getItem(STORAGE_KEY);
+
+        if (saved) {
+          audits = JSON.parse(saved);
+        } else {
+          audits = [];
+        }
+
+      } catch (error) {
+
+        console.error("Ошибка загрузки:", error);
+
+        audits = [];
+
+        showMessage(
+          "Не удалось загрузить сохранённые аудиты.",
+          "error"
+        );
+      }
+
     }
+
+
+    // ============================================
+    // СОХРАНЕНИЕ АУДИТОВ
+    // ============================================
+
+    function saveAudits() {
+
+      try {
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(audits)
+        );
+
+      } catch (error) {
+
+        console.error("Ошибка сохранения:", error);
+
+        showMessage(
+          "Не удалось сохранить аудит.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    // ============================================
+    // ЭКРАНИРОВАНИЕ HTML
+    // ============================================
+
+    function escapeHtml(value) {
+
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+
+    }
+
+
+    // ============================================
+    // СТАТУС
+    // ============================================
 
     function statusClass(status) {
-      if (status === "Запланирован") return "planned";
-      if (status === "В работе") return "progress";
-      return "done";
+
+      if (status === "progress") {
+        return "status-progress";
+      }
+
+      if (status === "done") {
+        return "status-done";
+      }
+
+      return "status-planned";
+
     }
 
+
+    function statusText(status) {
+
+      if (status === "progress") {
+        return "В работе";
+      }
+
+      if (status === "done") {
+        return "Завершён";
+      }
+
+      return "Запланирован";
+
+    }
+
+
+    // ============================================
+    // СООБЩЕНИЯ
+    // ============================================
+
+    function showMessage(text, type = "success") {
+
+      message.textContent = text;
+
+      message.className = "message " + type;
+
+      setTimeout(() => {
+
+        message.className = "message";
+
+      }, 3000);
+
+    }
+
+
+    // ============================================
+    // ОТОБРАЖЕНИЕ АУДИТОВ
+    // ============================================
+
     function renderAudits() {
-      const query = searchInput.value.toLowerCase().trim();
 
-      const filtered = audits.filter(audit =>
-        audit.client.toLowerCase().includes(query) ||
-        audit.industry.toLowerCase().includes(query) ||
-        audit.period.toLowerCase().includes(query)
-      );
+      const searchText =
+        searchInput.value.trim().toLowerCase();
 
-      if (filtered.length === 0) {
+
+      const filteredAudits = audits.filter(audit => {
+
+        const text = [
+          audit.client,
+          audit.industry,
+          audit.period,
+          statusText(audit.status)
+        ]
+          .join(" ")
+          .toLowerCase();
+
+        return text.includes(searchText);
+
+      });
+
+
+      counter.textContent =
+        `Всего аудитов: ${filteredAudits.length}`;
+
+
+      if (filteredAudits.length === 0) {
+
         auditList.innerHTML = `
           <div class="empty">
-            Аудитов пока нет. Создайте первую проверку.
+
+            <div class="empty-icon">📋</div>
+
+            <div>
+              ${
+                searchText
+                  ? "По вашему запросу ничего не найдено."
+                  : "Пока нет ни одного аудита."
+              }
+            </div>
+
           </div>
         `;
+
+        return;
+
+      }
+
+
+      auditList.innerHTML = filteredAudits
+        .map(audit => {
+
+          return `
+            <article class="audit-item">
+
+              <div class="audit-main">
+
+                <div>
+
+                  <div class="audit-name">
+                    ${escapeHtml(audit.client)}
+                  </div>
+
+                  <div class="audit-info">
+
+                    <div>
+                      <strong>Отрасль:</strong>
+                      ${escapeHtml(audit.industry)}
+                    </div>
+
+                    <div>
+                      <strong>Период:</strong>
+                      ${escapeHtml(audit.period)}
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <span class="status ${statusClass(audit.status)}">
+                  ${statusText(audit.status)}
+                </span>
+
+              </div>
+
+
+              <div class="audit-actions">
+
+                <button
+                  type="button"
+                  class="edit"
+                  data-action="edit"
+                  data-id="${audit.id}"
+                >
+                  ✏️ Изменить
+                </button>
+
+                <button
+                  type="button"
+                  class="danger"
+                  data-action="delete"
+                  data-id="${audit.id}"
+                >
+                  🗑 Удалить
+                </button>
+
+              </div>
+
+            </article>
+          `;
+
+        })
+        .join("");
+
+    }
+
+
+    // ============================================
+    // ДОБАВЛЕНИЕ / РЕДАКТИРОВАНИЕ
+    // ============================================
+
+    form.addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+
+      const client =
+        clientInput.value.trim();
+
+      const industry =
+        industryInput.value.trim();
+
+      const period =
+        periodInput.value.trim();
+
+      const status =
+        statusInput.value;
+
+
+      if (!client || !industry || !period) {
+
+        showMessage(
+          "Заполни все обязательные поля.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      // РЕДАКТИРОВАНИЕ
+
+      if (editingId !== null) {
+
+        const index = audits.findIndex(
+          audit => audit.id === editingId
+        );
+
+
+        if (index !== -1) {
+
+          audits[index] = {
+
+            ...audits[index],
+
+            client,
+            industry,
+            period,
+            status
+
+          };
+
+          saveAudits();
+
+          renderAudits();
+
+          resetForm();
+
+          showMessage(
+            "Аудит успешно изменён."
+          );
+
+        }
+
+        return;
+
+      }
+
+
+      // НОВЫЙ АУДИТ
+
+      const newAudit = {
+
+        id: Date.now().toString(),
+
+        client,
+        industry,
+        period,
+        status,
+
+        createdAt:
+          new Date().toISOString()
+
+      };
+
+
+      audits.unshift(newAudit);
+
+      saveAudits();
+
+      renderAudits();
+
+      resetForm();
+
+      showMessage(
+        "Аудит успешно добавлен."
+      );
+
+    });
+
+
+    // ============================================
+    // РЕДАКТИРОВАНИЕ
+    // ============================================
+
+    function editAudit(id) {
+
+      const audit = audits.find(
+        item => item.id === id
+      );
+
+
+      if (!audit) {
         return;
       }
 
-      auditList.innerHTML = filtered.map(audit => `
-        <article class="audit">
-          <div class="audit-top">
-            <div>
-              <h3>${escapeHtml(audit.client)}</h3>
-              <p><strong>Отрасль:</strong> ${escapeHtml(audit.industry)}</p>
-              <p><strong>Период:</strong> ${escapeHtml(audit.period)}</p>
-            </div>
-
-            <span class="status ${statusClass(audit.status)}">
-              ${escapeHtml(audit.status)}
-            </span>
-          </div>
-
-          <div class="actions">
-            <button onclick="editAudit('${audit.id}')">
-              Редактировать
-            </button>
-
-            <button class="danger" onclick="deleteAudit('${audit.id}')">
-              Удалить
-            </button>
-          </div>
-        </article>
-      `).join("");
-    }
-
-    function escapeHtml(value) {
-      return value
-        .replaceAll("&", "&")
-        .replaceAll("<", "<")
-        .replaceAll(">", ">")
-        .replaceAll('"', """)
-        .replaceAll("'", "'");
-    }
-
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
-
-      const auditData = {
-        client: clientInput.value.trim(),
-        industry: industryInput.value.trim(),
-        period: periodInput.value.trim(),
-        status: statusInput.value
-      };
-
-      if (editingId) {
-        audits = audits.map(audit =>
-          audit.id === editingId
-            ? { ...audit, ...auditData }
-            : audit
-        );
-      } else {
-        audits.unshift({
-          id: Date.now().toString(),
-          ...auditData
-        });
-      }
-
-      saveAudits();
-      resetForm();
-      renderAudits();
-    });
-
-    function editAudit(id) {
-      const audit = audits.find(item => item.id === id);
-      if (!audit) return;
 
       editingId = id;
-      clientInput.value = audit.client;
-      industryInput.value = audit.industry;
-      periodInput.value = audit.period;
-      statusInput.value = audit.status;
 
-      formTitle.textContent = "Редактирование аудита";
-      submitButton.textContent = "Сохранить изменения";
-      cancelButton.style.display = "inline-block";
 
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      clientInput.value =
+        audit.client;
+
+      industryInput.value =
+        audit.industry;
+
+      periodInput.value =
+        audit.period;
+
+      statusInput.value =
+        audit.status;
+
+
+      formTitle.textContent =
+        "Редактирование аудита";
+
+      submitButton.textContent =
+        "Сохранить изменения";
+
+      cancelButton.style.display =
+        "block";
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
     }
+
+
+    // ============================================
+    // УДАЛЕНИЕ
+    // ============================================
 
     function deleteAudit(id) {
-      if (!confirm("Удалить этот аудит?")) return;
 
-      audits = audits.filter(audit => audit.id !== id);
+      const audit = audits.find(
+        item => item.id === id
+      );
+
+
+      if (!audit) {
+        return;
+      }
+
+
+      const confirmed = confirm(
+        `Удалить аудит "${audit.client}"?`
+      );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      audits = audits.filter(
+        item => item.id !== id
+      );
+
+
       saveAudits();
+
       renderAudits();
+
+
+      if (editingId === id) {
+        resetForm();
+      }
+
+
+      showMessage(
+        "Аудит удалён."
+      );
+
     }
+
+
+    // ============================================
+    // ОТМЕНА РЕДАКТИРОВАНИЯ
+    // ============================================
+
+    cancelButton.addEventListener(
+      "click",
+      function() {
+
+        resetForm();
+
+      }
+    );
+
+
+    // ============================================
+    // СБРОС ФОРМЫ
+    // ============================================
 
     function resetForm() {
+
       editingId = null;
+
       form.reset();
-      formTitle.textContent = "Новый аудит"
-      submitButton.textContent = "Добавить аудит";
-      cancelButton.style.display = "none";
+
+      statusInput.value =
+        "planned";
+
+      formTitle.textContent =
+        "Новый аудит";
+
+      submitButton.textContent =
+        "Добавить аудит";
+
+      cancelButton.style.display =
+        "none";
+
     }
 
-    cancelButton.addEventListener("click", resetForm);
-    searchInput.addEventListener("input", renderAudits);
+
+    // ============================================
+    // ПОИСК
+    // ============================================
+
+    searchInput.addEventListener(
+      "input",
+      function() {
+
+        renderAudits();
+
+      }
+    );
+
+
+    // ============================================
+    // КНОПКИ В СПИСКЕ
+    // ============================================
+
+    auditList.addEventListener(
+      "click",
+      function(event) {
+
+        const button =
+          event.target.closest("button");
+
+
+        if (!button) {
+          return;
+        }
+
+
+        const action =
+          button.dataset.action;
+
+        const id =
+          button.dataset.id;
+
+
+        if (action === "edit") {
+
+          editAudit(id);
+
+        }
+
+
+        if (action === "delete") {
+
+          deleteAudit(id);
+
+        }
+
+      }
+    );
+
+
+    // ============================================
+    // ЗАПУСК ПРИЛОЖЕНИЯ
+    // ============================================
+
+    loadAudits();
 
     renderAudits();
+
   </script>
+
 </body>
 </html>
