@@ -2,7 +2,16 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#111827"
+  >
 
   <title>Точка аудита</title>
 
@@ -11,303 +20,696 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
       background: #f4f6f8;
       color: #1f2937;
     }
 
-    .app {
-      min-height: 100vh;
+    button,
+    input,
+    select {
+      font: inherit;
     }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* =========================
+       HEADER
+       ========================= */
 
     header {
       background: #111827;
       color: white;
-      padding: 22px 20px;
+      padding: 34px 20px;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
     header h1 {
-      margin: 0 0 6px;
-      font-size: 28px;
+      margin: 0 0 8px;
+      font-size: 34px;
+      line-height: 1.15;
+      font-weight: 800;
     }
 
     header p {
       margin: 0;
       color: #cbd5e1;
-      font-size: 14px;
+      font-size: 18px;
+      line-height: 1.5;
     }
 
-    main {
-      width: min(1100px, calc(100% - 30px));
-      margin: 30px auto;
+    /* =========================
+       LAYOUT
+       ========================= */
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 16px 50px;
     }
 
-    .grid {
+    .panel {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 28px;
+      margin-bottom: 22px;
+
+      box-shadow:
+        0 8px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .panel h2 {
+      margin: 0 0 24px;
+      font-size: 30px;
+      line-height: 1.2;
+    }
+
+    /* =========================
+       FORM
+       ========================= */
+
+    .form-grid {
       display: grid;
-      grid-template-columns: 380px 1fr;
-      gap: 24px;
-      align-items: start;
-    }
-
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 22px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
-    }
-
-    .card h2 {
-      margin-top: 0;
-      margin-bottom: 20px;
-      font-size: 20px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
     }
 
     .field {
-      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .field label {
-      display: block;
-      margin-bottom: 7px;
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    .field input,
-    .field select {
-      width: 100%;
-      padding: 12px 13px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
       font-size: 15px;
-      outline: none;
-      background: white;
-    }
-
-    .field input:focus,
-    .field select:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-    }
-
-    .buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    button {
-      border: 0;
-      border-radius: 10px;
-      padding: 12px 16px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    button:hover {
-      transform: translateY(-1px);
-    }
-
-    .primary {
-      background: #2563eb;
-      color: white;
-      flex: 1;
-    }
-
-    .primary:hover {
-      background: #1d4ed8;
-    }
-
-    .secondary {
-      background: #e5e7eb;
+      font-weight: 700;
       color: #374151;
     }
 
-    .danger {
+    input,
+    select {
+      width: 100%;
+      min-height: 54px;
+      padding: 13px 15px;
+
+      border: 1px solid #d1d5db;
+      border-radius: 14px;
+
+      background: #ffffff;
+      color: #111827;
+
+      outline: none;
+      transition: 0.2s ease;
+
+      font-size: 16px;
+    }
+
+    input::placeholder {
+      color: #9ca3af;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #2563eb;
+      box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    /* =========================
+       BUTTONS
+       ========================= */
+
+    .btn {
+      border: none;
+      border-radius: 14px;
+
+      min-height: 50px;
+      padding: 12px 18px;
+
+      font-weight: 700;
+      font-size: 15px;
+
+      transition:
+        transform 0.15s ease,
+        opacity 0.15s ease,
+        background 0.15s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #1f2937;
+    }
+
+    .btn-secondary:hover {
+      background: #d1d5db;
+    }
+
+    .btn-danger {
       background: #fee2e2;
       color: #b91c1c;
     }
 
-    .edit {
-      background: #dbeafe;
-      color: #1d4ed8;
+    .btn-danger:hover {
+      background: #fecaca;
     }
 
-    .top-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
+    .btn-open {
+      background: #111827;
+      color: white;
+    }
+
+    .btn-open:hover {
+      background: #1f2937;
+    }
+
+    .btn-wide {
+      width: 100%;
+    }
+
+    /* =========================
+       SEARCH
+       ========================= */
+
+    .search-wrapper {
       margin-bottom: 18px;
     }
 
-    .top-row h2 {
-      margin: 0;
-    }
-
     .search {
-      width: 240px;
-      padding: 11px 13px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      font-size: 14px;
-      outline: none;
+      background: #f8fafc;
     }
 
-    .search:focus {
-      border-color: #2563eb;
-    }
+    /* =========================
+       AUDIT LIST
+       ========================= */
 
     .audit-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
-    .audit-item {
+    .audit {
       border: 1px solid #e5e7eb;
-      border-radius: 14px;
-      padding: 17px;
-      background: #fff;
+      border-radius: 20px;
+
+      padding: 20px;
+
+      background: white;
+
+      transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        border-color 0.15s ease;
     }
 
-    .audit-main {
+    .audit:hover {
+      transform: translateY(-1px);
+
+      border-color: #cbd5e1;
+
+      box-shadow:
+        0 8px 25px rgba(15, 23, 42, 0.06);
+    }
+
+    .audit-clickable {
+      cursor: pointer;
+    }
+
+    .audit-top {
       display: flex;
       justify-content: space-between;
-      gap: 15px;
       align-items: flex-start;
-    }
-
-    .audit-name {
-      font-weight: 700;
-      font-size: 17px;
-      margin-bottom: 6px;
+      gap: 16px;
     }
 
     .audit-info {
-      color: #6b7280;
-      font-size: 13px;
-      line-height: 1.6;
+      min-width: 0;
     }
 
+    .audit h3 {
+      margin: 0 0 12px;
+
+      font-size: 23px;
+      line-height: 1.25;
+
+      color: #111827;
+    }
+
+    .audit p {
+      margin: 6px 0;
+
+      color: #6b7280;
+
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .audit p strong {
+      color: #374151;
+    }
+
+    /* =========================
+       STATUS
+       ========================= */
+
     .status {
-      display: inline-block;
-      padding: 6px 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 8px 12px;
+
       border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
+
+      font-size: 13px;
+      font-weight: 800;
+
       white-space: nowrap;
     }
 
-    .status-planned {
+    .status.planned {
       background: #fef3c7;
       color: #92400e;
     }
 
-    .status-progress {
+    .status.progress {
       background: #dbeafe;
       color: #1d4ed8;
     }
 
-    .status-done {
+    .status.done {
       background: #dcfce7;
       color: #166534;
     }
 
-    .audit-actions {
+    /* =========================
+       AUDIT ACTIONS
+       ========================= */
+
+    .actions {
       display: flex;
-      gap: 8px;
-      margin-top: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      margin-top: 18px;
     }
 
-    .audit-actions button {
-      padding: 8px 12px;
-      font-size: 12px;
+    .actions .btn {
+      min-height: 44px;
+      padding: 10px 14px;
     }
+
+    /* =========================
+       EMPTY
+       ========================= */
 
     .empty {
       text-align: center;
-      padding: 40px 20px;
-      color: #9ca3af;
+
+      padding: 45px 20px;
+
+      color: #6b7280;
     }
 
     .empty-icon {
-      font-size: 40px;
+      font-size: 44px;
       margin-bottom: 10px;
     }
 
+    .empty-title {
+      font-size: 20px;
+      font-weight: 700;
+
+      color: #374151;
+
+      margin-bottom: 6px;
+    }
+
+    /* =========================
+       COUNTER
+       ========================= */
+
     .counter {
+      margin-top: 18px;
+
       color: #6b7280;
-      font-size: 13px;
-      margin-top: 15px;
+
+      font-size: 15px;
     }
 
-    .message {
+    /* =========================
+       DETAIL VIEW
+       ========================= */
+
+    #detailView {
       display: none;
-      margin-bottom: 18px;
-      padding: 12px 15px;
-      border-radius: 10px;
-      font-size: 14px;
     }
 
-    .message.success {
-      display: block;
-      background: #dcfce7;
-      color: #166534;
+    .detail-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+
+      margin-bottom: 24px;
     }
 
-    .message.error {
-      display: block;
-      background: #fee2e2;
-      color: #991b1b;
+    .back-button {
+      width: 46px;
+      height: 46px;
+
+      border: none;
+      border-radius: 14px;
+
+      background: #e5e7eb;
+      color: #111827;
+
+      font-size: 24px;
+      font-weight: 700;
     }
+
+    .back-button:hover {
+      background: #d1d5db;
+    }
+
+    .detail-title {
+      flex: 1;
+    }
+
+    .detail-title h2 {
+      margin: 0 0 5px;
+    }
+
+    .detail-title p {
+      margin: 0;
+      color: #6b7280;
+    }
+
+    .detail-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+
+      padding: 22px;
+
+      background: #ffffff;
+    }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+
+      gap: 16px;
+
+      padding: 16px 0;
+
+      border-bottom: 1px solid #eef2f7;
+    }
+
+    .detail-row:first-child {
+      padding-top: 0;
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .detail-label {
+      font-weight: 700;
+      color: #6b7280;
+    }
+
+    .detail-value {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    .next-step {
+      margin-top: 22px;
+
+      padding: 20px;
+
+      border-radius: 18px;
+
+      background: #eff6ff;
+      border: 1px solid #dbeafe;
+    }
+
+    .next-step h3 {
+      margin: 0 0 8px;
+      color: #1e40af;
+    }
+
+    .next-step p {
+      margin: 0;
+      color: #374151;
+      line-height: 1.5;
+    }
+
+    /* =========================
+       MODAL
+       ========================= */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      background: rgba(15, 23, 42, 0.55);
+
+      z-index: 1000;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 650px;
+
+      max-height: 90vh;
+      overflow-y: auto;
+
+      background: white;
+
+      border-radius: 24px;
+
+      padding: 26px;
+
+      box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      margin-bottom: 22px;
+    }
+
+    .modal-header h2 {
+      margin: 0 0 5px;
+      font-size: 28px;
+    }
+
+    .modal-header p {
+      margin: 0;
+      color: #6b7280;
+    }
+
+    .close-button {
+      width: 42px;
+      height: 42px;
+
+      border: none;
+      border-radius: 12px;
+
+      background: #f3f4f6;
+
+      color: #374151;
+
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .close-button:hover {
+      background: #e5e7eb;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+
+      margin-top: 22px;
+    }
+
+    /* =========================
+       TOAST
+       ========================= */
+
+    .toast {
+      position: fixed;
+
+      left: 50%;
+      bottom: 25px;
+
+      transform:
+        translateX(-50%)
+        translateY(120px);
+
+      background: #111827;
+      color: white;
+
+      padding: 13px 18px;
+
+      border-radius: 14px;
+
+      font-weight: 600;
+
+      z-index: 2000;
+
+      opacity: 0;
+
+      transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+    }
+
+    .toast.show {
+      transform:
+        translateX(-50%)
+        translateY(0);
+
+      opacity: 1;
+    }
+
+    /* =========================
+       MOBILE
+       ========================= */
 
     @media (max-width: 800px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .top-row {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .search {
-        width: 100%;
-      }
-    }
-
-    @media (max-width: 500px) {
-      main {
-        width: min(100% - 20px, 1100px);
-        margin: 20px auto;
-      }
-
-      .card {
-        padding: 17px;
-      }
-
       header {
-        padding: 18px 15px;
+        padding: 28px 18px;
       }
 
       header h1 {
-        font-size: 24px;
+        font-size: 30px;
       }
 
-      .audit-main {
+      header p {
+        font-size: 16px;
+      }
+
+      .container {
+        padding: 0 12px 40px;
+      }
+
+      .panel {
+        padding: 20px;
+        border-radius: 20px;
+      }
+
+      .panel h2 {
+        font-size: 27px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-actions {
         flex-direction: column;
       }
 
-      .buttons {
+      .form-actions .btn {
+        width: 100%;
+      }
+
+      .audit-top {
         flex-direction: column;
       }
 
-      .primary {
+      .audit h3 {
+        font-size: 21px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .actions .btn {
+        width: 100%;
+      }
+
+      .detail-row {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+
+      .detail-label {
+        font-size: 14px;
+      }
+
+      .modal {
+        padding: 10px;
+      }
+
+      .modal-content {
+        border-radius: 20px;
+        padding: 20px;
+      }
+
+      .modal-actions {
+        flex-direction: column;
+      }
+
+      .modal-actions .btn {
         width: 100%;
       }
     }
@@ -316,546 +718,978 @@
 
 <body>
 
-  <div class="app">
+  <!-- =========================
+       HEADER
+       ========================= -->
 
-    <header>
+  <header>
+    <div class="header-inner">
       <h1>Точка аудита</h1>
       <p>Управление аудиторскими проверками</p>
-    </header>
+    </div>
+  </header>
 
-    <main>
 
-      <div id="message" class="message"></div>
+  <main class="container">
 
-      <div class="grid">
+    <!-- =========================
+         LIST SCREEN
+         ========================= -->
 
-        <!-- ФОРМА -->
-        <section class="card">
+    <div id="listView">
 
-          <h2 id="formTitle">Новый аудит</h2>
+      <!-- NEW AUDIT -->
 
-          <form id="auditForm">
+      <section class="panel">
+
+        <h2 id="formTitle">
+          Новый аудит
+        </h2>
+
+        <form id="auditForm">
+
+          <div class="form-grid">
 
             <div class="field">
-              <label for="client">Клиент / организация</label>
+              <label for="client">
+                Клиент / организация
+              </label>
+
               <input
-                type="text"
                 id="client"
-                name="client"
+                type="text"
                 placeholder="Например: ООО «Альфа»"
+                autocomplete="organization"
                 required
               >
             </div>
 
+
             <div class="field">
-              <label for="industry">Отрасль</label>
+              <label for="industry">
+                Отрасль
+              </label>
+
               <input
-                type="text"
                 id="industry"
-                name="industry"
+                type="text"
                 placeholder="Например: производство"
                 required
               >
             </div>
 
+
             <div class="field">
-              <label for="period">Период проверки</label>
+              <label for="period">
+                Период проверки
+              </label>
+
               <input
-                type="text"
                 id="period"
-                name="period"
+                type="text"
                 placeholder="Например: сентябрь 2026"
                 required
               >
             </div>
 
-            <div class="field">
-              <label for="status">Статус</label>
 
-              <select id="status" name="status">
-                <option value="planned">Запланирован</option>
-                <option value="progress">В работе</option>
-                <option value="done">Завершён</option>
+            <div class="field">
+              <label for="status">
+                Статус
+              </label>
+
+              <select id="status">
+                <option value="Запланирован">
+                  Запланирован
+                </option>
+
+                <option value="В работе">
+                  В работе
+                </option>
+
+                <option value="Завершён">
+                  Завершён
+                </option>
               </select>
             </div>
 
-            <div class="buttons">
-
-              <button
-                type="submit"
-                class="primary"
-                id="submitButton"
-              >
-                Добавить аудит
-              </button>
-
-              <button
-                type="button"
-                class="secondary"
-                id="cancelButton"
-                style="display: none;"
-              >
-                Отмена
-              </button>
-
-            </div>
-
-          </form>
-
-        </section>
+          </div>
 
 
-        <!-- СПИСОК АУДИТОВ -->
-        <section class="card">
+          <div class="form-actions">
 
-          <div class="top-row">
-
-            <h2>Мои аудиты</h2>
-
-            <input
-              type="search"
-              id="search"
-              class="search"
-              placeholder="Поиск..."
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="submitButton"
             >
+              Добавить аудит
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="cancelButton"
+              style="display: none;"
+            >
+              Отменить редактирование
+            </button>
 
           </div>
 
-          <div id="auditList" class="audit-list"></div>
+        </form>
 
-          <div id="counter" class="counter"></div>
+      </section>
 
-        </section>
+
+      <!-- AUDITS -->
+
+      <section class="panel">
+
+        <h2>
+          Мои аудиты
+        </h2>
+
+
+        <div class="search-wrapper">
+
+          <input
+            class="search"
+            id="search"
+            type="search"
+            placeholder="Поиск..."
+            autocomplete="off"
+          >
+
+        </div>
+
+
+        <div
+          id="auditList"
+          class="audit-list"
+        ></div>
+
+
+        <div
+          id="counter"
+          class="counter"
+        ></div>
+
+      </section>
+
+    </div>
+
+
+    <!-- =========================
+         DETAIL SCREEN
+         ========================= -->
+
+    <div id="detailView">
+
+      <section class="panel">
+
+        <div class="detail-header">
+
+          <button
+            type="button"
+            class="back-button"
+            id="backButton"
+            aria-label="Назад"
+          >
+            ←
+          </button>
+
+          <div class="detail-title">
+
+            <h2 id="detailClient">
+              Аудит
+            </h2>
+
+            <p>
+              Карточка аудиторской проверки
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="detail-card">
+
+          <div class="detail-row">
+
+            <div class="detail-label">
+              Организация
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailClientValue"
+            ></div>
+
+          </div>
+
+
+          <div class="detail-row">
+
+            <div class="detail-label">
+              Отрасль
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailIndustryValue"
+            ></div>
+
+          </div>
+
+
+          <div class="detail-row">
+
+            <div class="detail-label">
+              Период проверки
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailPeriodValue"
+            ></div>
+
+          </div>
+
+
+          <div class="detail-row">
+
+            <div class="detail-label">
+              Статус
+            </div>
+
+            <div>
+              <span
+                id="detailStatusValue"
+                class="status"
+              ></span>
+            </div>
+
+          </div>
+
+
+          <div class="next-step">
+
+            <h3>
+              Следующий шаг
+            </h3>
+
+            <p>
+              Здесь будет рабочее пространство аудита:
+              чек-листы, документы, фотографии,
+              голосовые заметки, нарушения, риски,
+              рекомендации и AI-анализ.
+            </p>
+
+          </div>
+
+
+          <div class="modal-actions">
+
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="detailEditButton"
+            >
+              ✏️ Редактировать
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="detailBackButton"
+            >
+              ← К списку аудитов
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <!-- =========================
+       MODAL
+       ========================= -->
+
+  <div
+    id="modal"
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+  >
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <div>
+
+          <h2 id="modalTitle">
+            Аудит
+          </h2>
+
+          <p>
+            Подробная информация
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          class="close-button"
+          id="closeModal"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
 
       </div>
 
-    </main>
+
+      <div class="detail-card">
+
+        <div class="detail-row">
+
+          <div class="detail-label">
+            Организация
+          </div>
+
+          <div
+            class="detail-value"
+            id="modalClient"
+          ></div>
+
+        </div>
+
+
+        <div class="detail-row">
+
+          <div class="detail-label">
+            Отрасль
+          </div>
+
+          <div
+            class="detail-value"
+            id="modalIndustry"
+          ></div>
+
+        </div>
+
+
+        <div class="detail-row">
+
+          <div class="detail-label">
+            Период
+          </div>
+
+          <div
+            class="detail-value"
+            id="modalPeriod"
+          ></div>
+
+        </div>
+
+
+        <div class="detail-row">
+
+          <div class="detail-label">
+            Статус
+          </div>
+
+          <div>
+
+            <span
+              id="modalStatus"
+              class="status"
+            ></span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="modalEditButton"
+        >
+          ✏️ Редактировать
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-open"
+          id="modalFullButton"
+        >
+          Открыть аудит
+        </button>
+
+      </div>
+
+    </div>
 
   </div>
 
 
+  <!-- =========================
+       TOAST
+       ========================= -->
+
+  <div
+    id="toast"
+    class="toast"
+  ></div>
+
+
+  <!-- =========================
+       JAVASCRIPT
+       ========================= -->
+
   <script>
 
-    // ============================================
-    // НАСТРОЙКИ
-    // ============================================
+    /* =========================
+       ELEMENTS
+       ========================= */
 
-    const STORAGE_KEY = "tochka_audita_audits";
+    const form =
+      document.getElementById("auditForm");
+
+    const clientInput =
+      document.getElementById("client");
+
+    const industryInput =
+      document.getElementById("industry");
+
+    const periodInput =
+      document.getElementById("period");
+
+    const statusInput =
+      document.getElementById("status");
+
+    const auditList =
+      document.getElementById("auditList");
+
+    const searchInput =
+      document.getElementById("search");
+
+    const counter =
+      document.getElementById("counter");
+
+    const formTitle =
+      document.getElementById("formTitle");
+
+    const submitButton =
+      document.getElementById("submitButton");
+
+    const cancelButton =
+      document.getElementById("cancelButton");
+
+    const listView =
+      document.getElementById("listView");
+
+    const detailView =
+      document.getElementById("detailView");
+
+    const backButton =
+      document.getElementById("backButton");
+
+    const detailBackButton =
+      document.getElementById("detailBackButton");
+
+    const detailEditButton =
+      document.getElementById("detailEditButton");
+
+    const detailClient =
+      document.getElementById("detailClient");
+
+    const detailClientValue =
+      document.getElementById("detailClientValue");
+
+    const detailIndustryValue =
+      document.getElementById("detailIndustryValue");
+
+    const detailPeriodValue =
+      document.getElementById("detailPeriodValue");
+
+    const detailStatusValue =
+      document.getElementById("detailStatusValue");
+
+    const modal =
+      document.getElementById("modal");
+
+    const closeModal =
+      document.getElementById("closeModal");
+
+    const modalTitle =
+      document.getElementById("modalTitle");
+
+    const modalClient =
+      document.getElementById("modalClient");
+
+    const modalIndustry =
+      document.getElementById("modalIndustry");
+
+    const modalPeriod =
+      document.getElementById("modalPeriod");
+
+    const modalStatus =
+      document.getElementById("modalStatus");
+
+    const modalEditButton =
+      document.getElementById("modalEditButton");
+
+    const modalFullButton =
+      document.getElementById("modalFullButton");
+
+    const toast =
+      document.getElementById("toast");
 
 
-    // ============================================
-    // ЭЛЕМЕНТЫ СТРАНИЦЫ
-    // ============================================
-
-    const form = document.getElementById("auditForm");
-
-    const clientInput = document.getElementById("client");
-    const industryInput = document.getElementById("industry");
-    const periodInput = document.getElementById("period");
-    const statusInput = document.getElementById("status");
-
-    const auditList = document.getElementById("auditList");
-    const searchInput = document.getElementById("search");
-    const counter = document.getElementById("counter");
-
-    const formTitle = document.getElementById("formTitle");
-    const submitButton = document.getElementById("submitButton");
-    const cancelButton = document.getElementById("cancelButton");
-
-    const message = document.getElementById("message");
-
-
-    // ============================================
-    // СОСТОЯНИЕ ПРИЛОЖЕНИЯ
-    // ============================================
+    /* =========================
+       STATE
+       ========================= */
 
     let audits = [];
+
     let editingId = null;
 
+    let selectedAuditId = null;
 
-    // ============================================
-    // ЗАГРУЗКА АУДИТОВ
-    // ============================================
+
+    /* =========================
+       LOAD DATA
+       ========================= */
 
     function loadAudits() {
 
       try {
 
-        const saved = localStorage.getItem(STORAGE_KEY);
+        const saved =
+          localStorage.getItem("audits");
 
-        if (saved) {
-          audits = JSON.parse(saved);
+        if (!saved) {
+          audits = [];
+          return;
+        }
+
+        const parsed =
+          JSON.parse(saved);
+
+        if (Array.isArray(parsed)) {
+          audits = parsed;
         } else {
           audits = [];
         }
 
       } catch (error) {
 
-        console.error("Ошибка загрузки:", error);
+        console.error(
+          "Ошибка загрузки аудитов:",
+          error
+        );
 
         audits = [];
-
-        showMessage(
-          "Не удалось загрузить сохранённые аудиты.",
-          "error"
-        );
       }
-
     }
 
 
-    // ============================================
-    // СОХРАНЕНИЕ АУДИТОВ
-    // ============================================
+    /* =========================
+       SAVE DATA
+       ========================= */
 
     function saveAudits() {
 
       try {
 
         localStorage.setItem(
-          STORAGE_KEY,
+          "audits",
           JSON.stringify(audits)
         );
 
       } catch (error) {
 
-        console.error("Ошибка сохранения:", error);
-
-        showMessage(
-          "Не удалось сохранить аудит.",
-          "error"
+        console.error(
+          "Ошибка сохранения:",
+          error
         );
 
+        showToast(
+          "Не удалось сохранить данные"
+        );
       }
-
     }
 
 
-    // ============================================
-    // ЭКРАНИРОВАНИЕ HTML
-    // ============================================
+    /* =========================
+       SAFE HTML
+       ========================= */
 
     function escapeHtml(value) {
 
-      return String(value)
+      return String(value ?? "")
         .replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#39;");
-
     }
 
 
-    // ============================================
-    // СТАТУС
-    // ============================================
+    /* =========================
+       STATUS CLASS
+       ========================= */
 
     function statusClass(status) {
 
-      if (status === "progress") {
-        return "status-progress";
+      if (status === "Запланирован") {
+        return "planned";
       }
 
-      if (status === "done") {
-        return "status-done";
+      if (status === "В работе") {
+        return "progress";
       }
 
-      return "status-planned";
-
+      return "done";
     }
 
 
-    function statusText(status) {
+    /* =========================
+       FIND AUDIT
+       ========================= */
 
-      if (status === "progress") {
-        return "В работе";
-      }
+    function findAudit(id) {
 
-      if (status === "done") {
-        return "Завершён";
-      }
-
-      return "Запланирован";
-
+      return audits.find(
+        audit => String(audit.id) === String(id)
+      );
     }
 
 
-    // ============================================
-    // СООБЩЕНИЯ
-    // ============================================
-
-    function showMessage(text, type = "success") {
-
-      message.textContent = text;
-
-      message.className = "message " + type;
-
-      setTimeout(() => {
-
-        message.className = "message";
-
-      }, 3000);
-
-    }
-
-
-    // ============================================
-    // ОТОБРАЖЕНИЕ АУДИТОВ
-    // ============================================
+    /* =========================
+       RENDER AUDITS
+       ========================= */
 
     function renderAudits() {
 
-      const searchText =
-        searchInput.value.trim().toLowerCase();
+      const query =
+        searchInput.value
+          .toLowerCase()
+          .trim();
 
 
-      const filteredAudits = audits.filter(audit => {
+      const filtered =
+        audits.filter(audit => {
 
-        const text = [
-          audit.client,
-          audit.industry,
-          audit.period,
-          statusText(audit.status)
-        ]
-          .join(" ")
-          .toLowerCase();
+          const client =
+            String(audit.client || "")
+              .toLowerCase();
 
-        return text.includes(searchText);
+          const industry =
+            String(audit.industry || "")
+              .toLowerCase();
 
-      });
+          const period =
+            String(audit.period || "")
+              .toLowerCase();
+
+          return (
+            client.includes(query) ||
+            industry.includes(query) ||
+            period.includes(query)
+          );
+        });
 
 
       counter.textContent =
-        `Всего аудитов: ${filteredAudits.length}`;
+        `Всего аудитов: ${filtered.length}`;
 
 
-      if (filteredAudits.length === 0) {
+      if (filtered.length === 0) {
 
         auditList.innerHTML = `
           <div class="empty">
 
-            <div class="empty-icon">📋</div>
+            <div class="empty-icon">
+              📋
+            </div>
+
+            <div class="empty-title">
+              Аудитов пока нет
+            </div>
 
             <div>
-              ${
-                searchText
-                  ? "По вашему запросу ничего не найдено."
-                  : "Пока нет ни одного аудита."
-              }
+              Создайте первую аудиторскую проверку.
             </div>
 
           </div>
         `;
 
         return;
-
       }
 
 
-      auditList.innerHTML = filteredAudits
-        .map(audit => {
+      auditList.innerHTML =
+        filtered.map(audit => `
 
-          return `
-            <article class="audit-item">
+          <article
+            class="audit audit-clickable"
+            data-open-id="${escapeHtml(audit.id)}"
+          >
 
-              <div class="audit-main">
+            <div class="audit-top">
 
-                <div>
+              <div class="audit-info">
 
-                  <div class="audit-name">
-                    ${escapeHtml(audit.client)}
-                  </div>
+                <h3>
+                  ${escapeHtml(audit.client)}
+                </h3>
 
-                  <div class="audit-info">
+                <p>
+                  <strong>Отрасль:</strong>
+                  ${escapeHtml(audit.industry)}
+                </p>
 
-                    <div>
-                      <strong>Отрасль:</strong>
-                      ${escapeHtml(audit.industry)}
-                    </div>
-
-                    <div>
-                      <strong>Период:</strong>
-                      ${escapeHtml(audit.period)}
-                    </div>
-
-                  </div>
-
-                </div>
-
-                <span class="status ${statusClass(audit.status)}">
-                  ${statusText(audit.status)}
-                </span>
+                <p>
+                  <strong>Период:</strong>
+                  ${escapeHtml(audit.period)}
+                </p>
 
               </div>
 
 
-              <div class="audit-actions">
+              <span
+                class="status ${statusClass(audit.status)}"
+              >
+                ${escapeHtml(audit.status)}
+              </span>
 
-                <button
-                  type="button"
-                  class="edit"
-                  data-action="edit"
-                  data-id="${audit.id}"
-                >
-                  ✏️ Изменить
-                </button>
+            </div>
 
-                <button
-                  type="button"
-                  class="danger"
-                  data-action="delete"
-                  data-id="${audit.id}"
-                >
-                  🗑 Удалить
-                </button>
 
-              </div>
+            <div class="actions">
 
-            </article>
-          `;
+              <button
+                type="button"
+                class="btn btn-open"
+                data-action="open"
+                data-id="${escapeHtml(audit.id)}"
+              >
+                Открыть аудит
+              </button>
 
-        })
-        .join("");
 
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-action="edit"
+                data-id="${escapeHtml(audit.id)}"
+              >
+                ✏️ Изменить
+              </button>
+
+
+              <button
+                type="button"
+                class="btn btn-danger"
+                data-action="delete"
+                data-id="${escapeHtml(audit.id)}"
+              >
+                🗑️ Удалить
+              </button>
+
+            </div>
+
+          </article>
+
+        `).join("");
     }
 
 
-    // ============================================
-    // ДОБАВЛЕНИЕ / РЕДАКТИРОВАНИЕ
-    // ============================================
+    /* =========================
+       OPEN AUDIT
+       ========================= */
 
-    form.addEventListener("submit", function(event) {
+    function openAudit(id) {
 
-      event.preventDefault();
+      const audit =
+        findAudit(id);
 
+      if (!audit) {
 
-      const client =
-        clientInput.value.trim();
-
-      const industry =
-        industryInput.value.trim();
-
-      const period =
-        periodInput.value.trim();
-
-      const status =
-        statusInput.value;
-
-
-      if (!client || !industry || !period) {
-
-        showMessage(
-          "Заполни все обязательные поля.",
-          "error"
+        showToast(
+          "Аудит не найден"
         );
 
         return;
-
       }
 
 
-      // РЕДАКТИРОВАНИЕ
-
-      if (editingId !== null) {
-
-        const index = audits.findIndex(
-          audit => audit.id === editingId
-        );
+      selectedAuditId =
+        String(audit.id);
 
 
-        if (index !== -1) {
+      modalTitle.textContent =
+        audit.client;
 
-          audits[index] = {
+      modalClient.textContent =
+        audit.client;
 
-            ...audits[index],
+      modalIndustry.textContent =
+        audit.industry;
 
-            client,
-            industry,
-            period,
-            status
+      modalPeriod.textContent =
+        audit.period;
 
-          };
+      modalStatus.textContent =
+        audit.status;
 
-          saveAudits();
-
-          renderAudits();
-
-          resetForm();
-
-          showMessage(
-            "Аудит успешно изменён."
-          );
-
-        }
-
-        return;
-
-      }
+      modalStatus.className =
+        `status ${statusClass(audit.status)}`;
 
 
-      // НОВЫЙ АУДИТ
-
-      const newAudit = {
-
-        id: Date.now().toString(),
-
-        client,
-        industry,
-        period,
-        status,
-
-        createdAt:
-          new Date().toISOString()
-
-      };
+      modal.classList.add("show");
 
 
-      audits.unshift(newAudit);
-
-      saveAudits();
-
-      renderAudits();
-
-      resetForm();
-
-      showMessage(
-        "Аудит успешно добавлен."
-      );
-
-    });
+      document.body.style.overflow =
+        "hidden";
+    }
 
 
-    // ============================================
-    // РЕДАКТИРОВАНИЕ
-    // ============================================
+    /* =========================
+       CLOSE MODAL
+       ========================= */
 
-    function editAudit(id) {
+    function closeAuditModal() {
 
-      const audit = audits.find(
-        item => item.id === id
-      );
+      modal.classList.remove("show");
 
+      document.body.style.overflow =
+        "";
+
+      selectedAuditId =
+        null;
+    }
+
+
+    /* =========================
+       FULL DETAIL VIEW
+       ========================= */
+
+    function openDetailView(id) {
+
+      const audit =
+        findAudit(id);
 
       if (!audit) {
         return;
       }
 
 
-      editingId = id;
+      selectedAuditId =
+        String(audit.id);
+
+
+      detailClient.textContent =
+        audit.client;
+
+      detailClientValue.textContent =
+        audit.client;
+
+      detailIndustryValue.textContent =
+        audit.industry;
+
+      detailPeriodValue.textContent =
+        audit.period;
+
+      detailStatusValue.textContent =
+        audit.status;
+
+      detailStatusValue.className =
+        `status ${statusClass(audit.status)}`;
+
+
+      listView.style.display =
+        "none";
+
+      detailView.style.display =
+        "block";
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+
+    /* =========================
+       CLOSE DETAIL VIEW
+       ========================= */
+
+    function closeDetailView() {
+
+      detailView.style.display =
+        "none";
+
+      listView.style.display =
+        "block";
+
+      selectedAuditId =
+        null;
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+
+    /* =========================
+       EDIT AUDIT
+       ========================= */
+
+    function editAudit(id) {
+
+      const audit =
+        findAudit(id);
+
+      if (!audit) {
+        return;
+      }
+
+
+      editingId =
+        String(audit.id);
 
 
       clientInput.value =
-        audit.client;
+        audit.client || "";
 
       industryInput.value =
-        audit.industry;
+        audit.industry || "";
 
       periodInput.value =
-        audit.period;
+        audit.period || "";
 
       statusInput.value =
-        audit.status;
+        audit.status || "Запланирован";
 
 
       formTitle.textContent =
@@ -868,33 +1702,43 @@
         "block";
 
 
+      closeAuditModal();
+
+      closeDetailView();
+
+
       window.scrollTo({
         top: 0,
         behavior: "smooth"
       });
 
+
+      setTimeout(() => {
+
+        clientInput.focus();
+
+      }, 400);
     }
 
 
-    // ============================================
-    // УДАЛЕНИЕ
-    // ============================================
+    /* =========================
+       DELETE AUDIT
+       ========================= */
 
     function deleteAudit(id) {
 
-      const audit = audits.find(
-        item => item.id === id
-      );
-
+      const audit =
+        findAudit(id);
 
       if (!audit) {
         return;
       }
 
 
-      const confirmed = confirm(
-        `Удалить аудит "${audit.client}"?`
-      );
+      const confirmed =
+        window.confirm(
+          `Удалить аудит «${audit.client}»?`
+        );
 
 
       if (!confirmed) {
@@ -902,54 +1746,36 @@
       }
 
 
-      audits = audits.filter(
-        item => item.id !== id
-      );
+      audits =
+        audits.filter(
+          item =>
+            String(item.id) !== String(id)
+        );
 
 
       saveAudits();
 
       renderAudits();
 
+      closeAuditModal();
 
-      if (editingId === id) {
-        resetForm();
-      }
-
-
-      showMessage(
-        "Аудит удалён."
+      showToast(
+        "Аудит удалён"
       );
-
     }
 
 
-    // ============================================
-    // ОТМЕНА РЕДАКТИРОВАНИЯ
-    // ============================================
-
-    cancelButton.addEventListener(
-      "click",
-      function() {
-
-        resetForm();
-
-      }
-    );
-
-
-    // ============================================
-    // СБРОС ФОРМЫ
-    // ============================================
+    /* =========================
+       RESET FORM
+       ========================= */
 
     function resetForm() {
 
-      editingId = null;
+      editingId =
+        null;
 
       form.reset();
 
-      statusInput.value =
-        "planned";
 
       formTitle.textContent =
         "Новый аудит";
@@ -959,68 +1785,361 @@
 
       cancelButton.style.display =
         "none";
-
     }
 
 
-    // ============================================
-    // ПОИСК
-    // ============================================
+    /* =========================
+       FORM SUBMIT
+       ========================= */
 
-    searchInput.addEventListener(
-      "input",
-      function() {
+    form.addEventListener(
+      "submit",
+      function(event) {
+
+        event.preventDefault();
+
+
+        const client =
+          clientInput.value.trim();
+
+        const industry =
+          industryInput.value.trim();
+
+        const period =
+          periodInput.value.trim();
+
+        const status =
+          statusInput.value;
+
+
+        if (
+          !client ||
+          !industry ||
+          !period
+        ) {
+
+          showToast(
+            "Заполни все поля"
+          );
+
+          return;
+        }
+
+
+        const auditData = {
+          client,
+          industry,
+          period,
+          status
+        };
+
+
+        /* EDIT */
+
+        if (editingId) {
+
+          audits =
+            audits.map(audit => {
+
+              if (
+                String(audit.id) ===
+                String(editingId)
+              ) {
+
+                return {
+                  ...audit,
+                  ...auditData
+                };
+              }
+
+              return audit;
+            });
+
+
+          showToast(
+            "Изменения сохранены"
+          );
+
+        }
+
+        /* CREATE */
+
+        else {
+
+          const newAudit = {
+
+            id:
+              `${Date.now()}-${Math.random()
+                .toString(36)
+                .slice(2, 8)}`,
+
+            ...auditData,
+
+            createdAt:
+              new Date().toISOString()
+          };
+
+
+          audits.unshift(
+            newAudit
+          );
+
+
+          showToast(
+            "Аудит создан"
+          );
+        }
+
+
+        saveAudits();
+
+        resetForm();
 
         renderAudits();
-
       }
     );
 
 
-    // ============================================
-    // КНОПКИ В СПИСКЕ
-    // ============================================
+    /* =========================
+       AUDIT LIST CLICKS
+       ========================= */
 
     auditList.addEventListener(
       "click",
       function(event) {
 
-        const button =
-          event.target.closest("button");
+        const actionButton =
+          event.target.closest(
+            "[data-action]"
+          );
 
 
-        if (!button) {
+        if (actionButton) {
+
+          const action =
+            actionButton.dataset.action;
+
+          const id =
+            actionButton.dataset.id;
+
+
+          if (action === "open") {
+            openAudit(id);
+          }
+
+
+          if (action === "edit") {
+            editAudit(id);
+          }
+
+
+          if (action === "delete") {
+            deleteAudit(id);
+          }
+
+
           return;
         }
 
 
-        const action =
-          button.dataset.action;
+        const card =
+          event.target.closest(
+            "[data-open-id]"
+          );
 
-        const id =
-          button.dataset.id;
 
+        if (card) {
 
-        if (action === "edit") {
+          const id =
+            card.dataset.openId;
 
-          editAudit(id);
-
+          openAudit(id);
         }
-
-
-        if (action === "delete") {
-
-          deleteAudit(id);
-
-        }
-
       }
     );
 
 
-    // ============================================
-    // ЗАПУСК ПРИЛОЖЕНИЯ
-    // ============================================
+    /* =========================
+       MODAL BUTTONS
+       ========================= */
+
+    closeModal.addEventListener(
+      "click",
+      closeAuditModal
+    );
+
+
+    modal.addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          event.target === modal
+        ) {
+
+          closeAuditModal();
+        }
+      }
+    );
+
+
+    modalEditButton.addEventListener(
+      "click",
+      function() {
+
+        if (selectedAuditId) {
+
+          editAudit(
+            selectedAuditId
+          );
+        }
+      }
+    );
+
+
+    modalFullButton.addEventListener(
+      "click",
+      function() {
+
+        if (selectedAuditId) {
+
+          const id =
+            selectedAuditId;
+
+          closeAuditModal();
+
+          openDetailView(id);
+        }
+      }
+    );
+
+
+    /* =========================
+       DETAIL BUTTONS
+       ========================= */
+
+    backButton.addEventListener(
+      "click",
+      closeDetailView
+    );
+
+
+    detailBackButton.addEventListener(
+      "click",
+      closeDetailView
+    );
+
+
+    detailEditButton.addEventListener(
+      "click",
+      function() {
+
+        if (selectedAuditId) {
+
+          editAudit(
+            selectedAuditId
+          );
+        }
+      }
+    );
+
+
+    /* =========================
+       CANCEL EDIT
+       ========================= */
+
+    cancelButton.addEventListener(
+      "click",
+      function() {
+
+        resetForm();
+
+        showToast(
+          "Редактирование отменено"
+        );
+      }
+    );
+
+
+    /* =========================
+       SEARCH
+       ========================= */
+
+    searchInput.addEventListener(
+      "input",
+      renderAudits
+    );
+
+
+    /* =========================
+       ESC KEY
+       ========================= */
+
+    document.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          if (
+            modal.classList.contains("show")
+          ) {
+
+            closeAuditModal();
+
+          } else if (
+            detailView.style.display !==
+            "none"
+          ) {
+
+            closeDetailView();
+          }
+        }
+      }
+    );
+
+
+    /* =========================
+       TOAST
+       ========================= */
+
+    let toastTimer = null;
+
+
+    function showToast(message) {
+
+      toast.textContent =
+        message;
+
+      toast.classList.add(
+        "show"
+      );
+
+
+      clearTimeout(
+        toastTimer
+      );
+
+
+      toastTimer =
+        setTimeout(
+          function() {
+
+            toast.classList.remove(
+              "show"
+            );
+
+          },
+          2200
+        );
+    }
+
+
+    /* =========================
+       START APPLICATION
+       ========================= */
 
     loadAudits();
 
